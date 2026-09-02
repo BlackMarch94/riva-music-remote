@@ -1,0 +1,13 @@
+{
+  "name": "riva-music-remote",
+  "version": "1.0.0",
+  "description": "Riva Music Box - Mobile Jukebox Controller for Cloudflare Pages",
+  "main": "index.html",
+  "scripts": {
+    "build": "echo 'Static build complete'",
+    "deploy": "echo 'Ready for deployment'"
+  },
+  "keywords": ["jukebox", "music", "riva", "cloudflare-pages"],
+  "author": "BlackMarch94",
+  "license": "MIT"
+}
