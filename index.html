@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>RIVA MUSIC BOX - Jukebox Request</title>
+
+  <!-- Typography -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Archivo:ital,wght@0,400;0,600;0,700;0,900;1,700&family=Space+Grotesk:wght@500;700&family=Space+Mono:wght@700&display=swap" rel="stylesheet">
+
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+  <div class="app-viewport">
+    
+    <!-- App Navigation Header -->
+    <header class="app-navbar">
+      <div class="navbar-left">
+        <img src="rivaLogo.png" alt="RIVA" class="nav-logo">
+        <div class="nav-brand">
+          <span class="nav-brand-title">RIVA MUSIC BOX</span>
+          <span class="nav-brand-subtitle">TV JUKEBOX CONTROLLER</span>
+        </div>
+      </div>
+      <div class="nav-status">
+        <span class="status-live-dot"></span>
+        <span class="status-live-text">ON AIR</span>
+      </div>
+    </header>
+
+    <!-- Requester Identification Bar -->
+    <section class="identity-bar">
+      <div class="identity-input-box">
+        <label for="user-name-input">REQUESTER NAME / TABLE</label>
+        <input type="text" id="user-name-input" placeholder="e.g. Alex / Table 4" maxlength="32">
+      </div>
+    </section>
+
+    <!-- Search & Category Filters -->
+    <section class="search-container">
+      <div class="search-input-field">
+        <svg class="search-glyph" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+          <circle cx="11" cy="11" r="8"></circle>
+          <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+        </svg>
+        <input type="text" id="search-input" placeholder="Search YouTube songs, artists..." autocomplete="off">
+        <button id="search-clear-btn" class="search-reset hidden">✕</button>
+      </div>
+
+      <div class="category-filters-track">
+        <button class="filter-pill active" data-genre="all">ALL TRACKS</button>
+        <button class="filter-pill" data-genre="pop">POP</button>
+        <button class="filter-pill" data-genre="dance">DANCE / EDM</button>
+        <button class="filter-pill" data-genre="rock">ROCK</button>
+        <button class="filter-pill" data-genre="latin">LATIN</button>
+        <button class="filter-pill" data-genre="80s">80s & 90s</button>
+      </div>
+    </section>
+
+    <!-- Song Catalog List -->
+    <main class="catalog-section">
+      <div class="catalog-header">
+        <span id="results-heading" class="catalog-title">POPULAR ON RIVA TV</span>
+        <span id="results-count" class="catalog-count">17 TRACKS</span>
+      </div>
+
+      <div id="songs-list-container" class="catalog-list">
+        <!-- Dynamic Song Rows -->
+      </div>
+    </main>
+
+    <!-- Request Confirmation Dialog -->
+    <div id="success-modal" class="modal-overlay hidden">
+      <div class="modal-dialog">
+        <div class="modal-badge">REQUEST CONFIRMED</div>
+        <h3 class="modal-heading">ADDED TO TV QUEUE</h3>
+        <p class="modal-subheading">Your song has been sent to the on-air TV channel and will <strong>play next right after the current song</strong>.</p>
+        
+        <div class="modal-preview-card" id="queued-song-preview">
+          <!-- Queued Track Details -->
+        </div>
+
+        <button id="modal-close-btn" class="modal-action-btn">REQUEST ANOTHER SONG</button>
+      </div>
+    </div>
+
+  </div>
+
+  <script src="js/app.js"></script>
+</body>
+</html>

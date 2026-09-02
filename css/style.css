@@ -1,0 +1,466 @@
+/* =========================================================
+   RIVA MUSIC BOX - Mobile Jukebox Remote Controller
+   Style: Ultra-clean Dark Modern Music Application
+   ========================================================= */
+
+:root {
+  --app-bg: #090a0e;
+  --card-bg: #12141a;
+  --card-border: rgba(255, 255, 255, 0.08);
+  --card-hover: #191c24;
+  
+  --brand-red: #e50914;
+  --brand-red-bright: #ff1e38;
+  
+  --text-primary: #ffffff;
+  --text-secondary: #8e93a6;
+  --text-muted: #53586b;
+  
+  --font-main: 'Archivo', sans-serif;
+  --font-tech: 'Space Grotesk', sans-serif;
+  --font-mono: 'Space Mono', monospace;
+  
+  --radius-lg: 16px;
+  --radius-md: 10px;
+  --radius-sm: 6px;
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  -webkit-tap-highlight-color: transparent;
+}
+
+body {
+  background-color: var(--app-bg);
+  color: var(--text-primary);
+  font-family: var(--font-main);
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+}
+
+.app-viewport {
+  width: 100%;
+  max-width: 480px;
+  min-height: 100vh;
+  padding: 16px 16px 40px 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+/* =========================================================
+   NAVBAR
+   ========================================================= */
+.app-navbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 6px 0;
+}
+
+.navbar-left {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.nav-logo {
+  height: 38px;
+  width: auto;
+  object-fit: contain;
+}
+
+.nav-brand {
+  display: flex;
+  flex-direction: column;
+}
+
+.nav-brand-title {
+  font-family: var(--font-main);
+  font-size: 16px;
+  font-weight: 900;
+  letter-spacing: 1px;
+  color: #ffffff;
+  text-transform: uppercase;
+}
+
+.nav-brand-subtitle {
+  font-family: var(--font-tech);
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 1.5px;
+  color: var(--text-muted);
+  text-transform: uppercase;
+}
+
+.nav-status {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  background-color: #161820;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  padding: 5px 10px;
+  border-radius: 4px;
+}
+
+.status-live-dot {
+  width: 6px;
+  height: 6px;
+  background-color: var(--brand-red);
+  border-radius: 50%;
+  animation: livePulse 1.5s infinite;
+}
+
+.status-live-text {
+  font-family: var(--font-tech);
+  font-size: 10px;
+  font-weight: 800;
+  letter-spacing: 1px;
+  color: #ffffff;
+}
+
+/* =========================================================
+   IDENTITY BAR
+   ========================================================= */
+.identity-bar {
+  background-color: var(--card-bg);
+  border: 1px solid var(--card-border);
+  border-radius: var(--radius-md);
+  padding: 10px 14px;
+}
+
+.identity-input-box {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.identity-input-box label {
+  font-family: var(--font-tech);
+  font-size: 9px;
+  font-weight: 800;
+  letter-spacing: 1.5px;
+  color: var(--text-muted);
+}
+
+.identity-input-box input {
+  background: transparent;
+  border: none;
+  outline: none;
+  color: #ffffff;
+  font-family: var(--font-main);
+  font-size: 14px;
+  font-weight: 700;
+}
+
+.identity-input-box input::placeholder {
+  color: var(--text-muted);
+  font-weight: 400;
+}
+
+/* =========================================================
+   SEARCH & FILTERS
+   ========================================================= */
+.search-container {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.search-input-field {
+  position: relative;
+  display: flex;
+  align-items: center;
+  background-color: var(--card-bg);
+  border: 1px solid var(--card-border);
+  border-radius: var(--radius-md);
+  padding: 0 14px;
+  height: 48px;
+}
+
+.search-input-field:focus-within {
+  border-color: rgba(255, 255, 255, 0.3);
+}
+
+.search-glyph {
+  width: 18px;
+  height: 18px;
+  color: var(--text-muted);
+  margin-right: 10px;
+}
+
+#search-input {
+  flex: 1;
+  background: transparent;
+  border: none;
+  outline: none;
+  color: #ffffff;
+  font-family: var(--font-main);
+  font-size: 14px;
+  font-weight: 600;
+}
+
+#search-input::placeholder {
+  color: var(--text-muted);
+  font-weight: 400;
+}
+
+.search-reset {
+  background: rgba(255, 255, 255, 0.1);
+  border: none;
+  color: var(--text-secondary);
+  width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 11px;
+}
+
+.search-reset.hidden {
+  display: none;
+}
+
+.category-filters-track {
+  display: flex;
+  gap: 6px;
+  overflow-x: auto;
+  scrollbar-width: none;
+  padding-bottom: 2px;
+}
+
+.category-filters-track::-webkit-scrollbar {
+  display: none;
+}
+
+.filter-pill {
+  flex-shrink: 0;
+  background-color: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  color: var(--text-secondary);
+  padding: 6px 14px;
+  border-radius: 4px;
+  font-family: var(--font-tech);
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 1px;
+  cursor: pointer;
+}
+
+.filter-pill.active {
+  background-color: var(--brand-red);
+  color: #ffffff;
+  border-color: var(--brand-red-bright);
+}
+
+/* =========================================================
+   CATALOG LIST
+   ========================================================= */
+.catalog-section {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.catalog-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.catalog-title {
+  font-family: var(--font-tech);
+  font-size: 12px;
+  font-weight: 800;
+  letter-spacing: 1.5px;
+  color: var(--text-secondary);
+  text-transform: uppercase;
+}
+
+.catalog-count {
+  font-family: var(--font-mono);
+  font-size: 10px;
+  color: var(--text-muted);
+  font-weight: 700;
+}
+
+.catalog-list {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.song-item-row {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  background-color: var(--card-bg);
+  border: 1px solid var(--card-border);
+  border-radius: var(--radius-md);
+  padding: 10px 12px;
+  cursor: pointer;
+  transition: background-color 0.15s ease;
+}
+
+.song-item-row:active {
+  background-color: var(--card-hover);
+}
+
+.song-cover-thumb {
+  width: 48px;
+  height: 48px;
+  border-radius: var(--radius-sm);
+  object-fit: cover;
+  flex-shrink: 0;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  background-color: #000;
+}
+
+.song-text-meta {
+  flex: 1;
+  min-width: 0;
+}
+
+.song-main-title {
+  font-family: var(--font-main);
+  font-size: 14px;
+  font-weight: 700;
+  color: #ffffff;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  text-transform: uppercase;
+}
+
+.song-sub-artist {
+  font-family: var(--font-tech);
+  font-size: 12px;
+  font-weight: 500;
+  color: var(--text-secondary);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  margin-top: 2px;
+  text-transform: uppercase;
+}
+
+.song-action-btn {
+  background-color: var(--brand-red);
+  color: #ffffff;
+  border: none;
+  padding: 8px 14px;
+  border-radius: 6px;
+  font-family: var(--font-tech);
+  font-size: 11px;
+  font-weight: 800;
+  letter-spacing: 1px;
+  cursor: pointer;
+  flex-shrink: 0;
+}
+
+.song-action-btn:active {
+  background-color: var(--brand-red-bright);
+}
+
+/* =========================================================
+   CONFIRMATION MODAL
+   ========================================================= */
+.modal-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.88);
+  backdrop-filter: blur(6px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+  z-index: 1000;
+}
+
+.modal-overlay.hidden {
+  display: none;
+}
+
+.modal-dialog {
+  background-color: #12141c;
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  border-radius: var(--radius-lg);
+  padding: 24px 20px;
+  width: 100%;
+  max-width: 380px;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.9);
+}
+
+.modal-badge {
+  font-family: var(--font-tech);
+  font-size: 10px;
+  font-weight: 800;
+  letter-spacing: 2px;
+  color: var(--brand-red-bright);
+  background: rgba(229, 9, 20, 0.15);
+  padding: 4px 12px;
+  border-radius: 4px;
+}
+
+.modal-heading {
+  font-family: var(--font-main);
+  font-size: 20px;
+  font-weight: 900;
+  letter-spacing: 0.5px;
+  color: #ffffff;
+  text-transform: uppercase;
+}
+
+.modal-subheading {
+  font-family: var(--font-tech);
+  font-size: 12px;
+  color: var(--text-secondary);
+  line-height: 1.5;
+}
+
+.modal-subheading strong {
+  color: #ffffff;
+}
+
+.modal-preview-card {
+  width: 100%;
+  background-color: #181a24;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: var(--radius-md);
+  padding: 10px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  text-align: left;
+}
+
+.modal-action-btn {
+  width: 100%;
+  background-color: var(--brand-red);
+  color: #ffffff;
+  border: none;
+  padding: 12px;
+  border-radius: var(--radius-md);
+  font-family: var(--font-tech);
+  font-size: 12px;
+  font-weight: 800;
+  letter-spacing: 1.5px;
+  cursor: pointer;
+  margin-top: 6px;
+}
+
+@keyframes livePulse {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.3; }
+}
