@@ -28,13 +28,13 @@ export async function onRequestPost({ request }) {
     queueCache.unshift(song);
     if (queueCache.length > 50) queueCache = queueCache.slice(0, 50);
 
-    // Relay to TV Server if reachable
+    // Relay to TV Server
     try {
-      fetch('https://tv.maryhary.online/api/request', {
+      await fetch('https://tv.maryhary.online/api/request', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ song })
-      }).catch(() => {});
+      });
     } catch (e) {}
 
     return new Response(JSON.stringify({ success: true, song, queueLength: queueCache.length }), { headers: corsHeaders });
