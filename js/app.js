@@ -166,16 +166,24 @@ async function handleSongRequest(song) {
     song: songData
   };
 
+  let serverResult = null;
   // 1. Direct HTTPS post to TV Master Server (Instant, guaranteed delivery)
   try {
-    fetch('https://tv.maryhary.online/api/request', {
+    const res = await fetch('https://tv.maryhary.online/api/request', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(payload)
-    }).catch(() => {});
+    });
+    serverResult = await res.json();
   } catch (e) {}
 
-  // 2. Fallback to origin API
+  // Check if queue is full
+  if (serverResult && serverResult.success === false) {
+    alert(serverResult.error || 'Queue is currently full (10/10 songs). Please wait for a song to finish!');
+    return;
+  }
+
+  // 2. Fallback / relay to origin API
   try {
     await fetch(`${API_BASE_URL}/api/request`, {
       method: 'POST',
@@ -195,12 +203,25 @@ async function handleSongRequest(song) {
     timestamp: Date.now()
   }));
 
-  // Show Confirmation Modal
+  // Show Confirmation Modal (Customized for new vs bumped)
+  const isBumped = serverResult && serverResult.action === 'bumped';
+  const modalBadge = elements.modal.querySelector('.modal-badge');
+  const modalHeading = elements.modal.querySelector('.modal-heading');
+  const modalSubheading = elements.modal.querySelector('.modal-subheading');
+
+  if (modalBadge) modalBadge.textContent = isBumped ? '🔥 VOTE BUMP' : 'REQUEST CONFIRMED';
+  if (modalHeading) modalHeading.textContent = isBumped ? 'MOVED TO TOP OF QUEUE!' : 'ADDED TO TV QUEUE';
+  if (modalSubheading) {
+    modalSubheading.innerHTML = isBumped
+      ? `This track is already in the playlist! It now has <strong>${serverResult.requestCount} requests</strong> and jumped to the top!`
+      : `Your song has been sent to the on-air TV channel and will <strong>play in request order</strong>.`;
+  }
+
   elements.queuedSongPreview.innerHTML = `
     <img src="${songData.thumbnail}" style="width:44px; height:44px; border-radius:4px; object-fit:cover;">
     <div style="flex:1; min-width:0;">
       <div style="font-family:var(--font-main); font-weight:800; font-size:13px; color:#fff; text-transform:uppercase; white-space:nowrap; overflow:hidden; text-overflow:ellipsis;">${escapeHtml(songData.title)}</div>
-      <div style="font-family:var(--font-tech); font-size:11px; color:#8e93a6; text-transform:uppercase; margin-top:2px;">${escapeHtml(songData.artist)} • BY: ${escapeHtml(requesterName)}</div>
+      <div style="font-family:var(--font-tech); font-size:11px; color:#8e93a6; text-transform:uppercase; margin-top:2px;">${escapeHtml(songData.artist)} • BY: ${escapeHtml(requesterName)}${isBumped ? ` (🔥 ${serverResult.requestCount}x)` : ''}</div>
     </div>
   `;
 
