@@ -166,7 +166,16 @@ async function handleSongRequest(song) {
     song: songData
   };
 
-  // 1. Post to API
+  // 1. Direct HTTPS post to TV Master Server (Instant, guaranteed delivery)
+  try {
+    fetch('https://tv.maryhary.online/api/request', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(payload)
+    }).catch(() => {});
+  } catch (e) {}
+
+  // 2. Fallback to origin API
   try {
     await fetch(`${API_BASE_URL}/api/request`, {
       method: 'POST',
@@ -174,15 +183,6 @@ async function handleSongRequest(song) {
       body: JSON.stringify(payload)
     });
   } catch (err) {}
-
-  // 2. Direct server relay
-  try {
-    fetch('http://167.235.36.23:3000/api/request', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify(payload)
-    }).catch(() => {});
-  } catch (e) {}
 
   // 3. BroadcastChannel
   if (broadcastChannel) {

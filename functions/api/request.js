@@ -30,7 +30,7 @@ export async function onRequestPost({ request }) {
 
     // Relay to TV Server if reachable
     try {
-      fetch('http://167.235.36.23:3000/api/request', {
+      fetch('https://tv.maryhary.online/api/request', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ song })
